@@ -1,10 +1,4 @@
-// import { useState } from 'react';
-
-function FilterAircrafts(filter: any, setFilter: Function) {
-  //   const [inFilter, setInFilter] = useState({
-
-  //   });
-
+export default function FilterAircrafts(filter: any, setFilter: Function) {
   return (
     <div>
       <div>Filter</div>
@@ -59,5 +53,3 @@ function FilterAircrafts(filter: any, setFilter: Function) {
     </div>
   );
 }
-
-export default FilterAircrafts;

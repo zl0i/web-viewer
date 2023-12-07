@@ -1,6 +1,6 @@
 import { Aircrafts } from '../api/flights';
 
-function AircraftRow(ac: Aircrafts) {
+export default function AircraftRow(ac: Aircrafts) {
   return (
     <tr key={ac.reg}>
       <td>{ac.hexcode}</td>
@@ -14,5 +14,3 @@ function AircraftRow(ac: Aircrafts) {
     </tr>
   );
 }
-
-export default AircraftRow;

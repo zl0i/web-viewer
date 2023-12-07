@@ -6,7 +6,7 @@ import AircraftRow from './components/AircraftRow';
 import './App.css';
 import FilterAircrafts from './components/FilterAircrafts';
 
-function App() {
+export default function App() {
   const auth = useAuth();
   const [hasTriedSignin, setHasTriedSignin] = useState(false);
 
@@ -94,5 +94,3 @@ function App() {
     </div>
   );
 }
-
-export default App;
