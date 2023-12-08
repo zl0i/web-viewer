@@ -1,10 +1,11 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useAuth, hasAuthParams } from 'react-oidc-context';
-import { Aircrafts, fetchAllAircrafts } from './api/flights';
+import { AircraftPhoto, Aircrafts, fetchAircraftPhotos, fetchAllAircrafts } from './api/flights';
 import AircraftRow from './components/AircraftRow';
 
 import './App.css';
 import FilterAircrafts from './components/FilterAircrafts';
+import EditAircraftDialog from './components/EditAircraftDialog';
 
 export default function App() {
   const auth = useAuth();
@@ -18,7 +19,16 @@ export default function App() {
   }, [auth, hasTriedSignin]);
 
   const [aircrafts, setAircrafts] = useState([] as Aircrafts[]);
+  const [photos, setPhotos] = useState([] as AircraftPhoto[]);
   const [filteredAircrafts, setFilteredAircrafts] = useState([] as Aircrafts[]);
+  const [editAircraft, setEditAircraft] = useState(null as Aircrafts | null);
+
+  useMemo(() => {
+    if (editAircraft) {
+      setPhotos([]);
+      fetchAircraftPhotos(auth.user!.access_token, editAircraft.hexcode).then(setPhotos);
+    }
+  }, [editAircraft]);
 
   const [filter, setFilter] = useState({
     hexcode: null as null | string,
@@ -51,6 +61,8 @@ export default function App() {
       })
     );
   }, [aircrafts, filter]);
+
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     if (auth.user) {
@@ -85,10 +97,13 @@ export default function App() {
             <th>Country</th>
             <th>Force</th>
             <th>Alt Force</th>
+            <th></th>
           </tr>
         </thead>
-        <tbody>{filteredAircrafts.map((ac) => AircraftRow(ac))}</tbody>
+        <tbody>{filteredAircrafts.map((ac) => AircraftRow(ac, setIsOpen, setEditAircraft))}</tbody>
       </table>
+
+      <EditAircraftDialog {...{ aircraft: editAircraft, photos: photos, isOpen, setIsOpen }} />
     </div>
   );
 }

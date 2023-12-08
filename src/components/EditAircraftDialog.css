@@ -1,0 +1,33 @@
+.air-phots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 600px;
+  height: 400px;
+}
+
+.air-photos-control {
+  display: flex;
+}
+
+.air-photos-control * {
+  margin: 5px 5px 5px 0px;
+}
+
+.air-phots img {
+  max-width: 600px;
+  height: 400px;
+  object-fit: scale-down;
+}
+
+.force {
+  display: flex;
+  flex-direction: row;
+
+}
+
+.force div {
+  display: flex;
+  flex-direction: column;
+  margin: 8px;
+}

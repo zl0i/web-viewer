@@ -1,6 +1,6 @@
 import { Aircrafts } from '../api/flights';
 
-export default function AircraftRow(ac: Aircrafts) {
+export default function AircraftRow(ac: Aircrafts, setOpenDialog: (o: boolean) => void, setEditAircraft: Function) {
   return (
     <tr key={ac.reg}>
       <td>{ac.hexcode}</td>
@@ -11,6 +11,16 @@ export default function AircraftRow(ac: Aircrafts) {
       <td>{ac.country}</td>
       <td>{`${ac.air_squadron ?? 'N'} sq ${ac.air_group ?? 'N'} group ${ac.air_wing ?? 'N'} wing ${ac.air_forse ?? 'N'} force ${ac.air_command ?? 'N'}`}</td>
       <td>{`${ac.air_squadron_alt ?? 'N'} sq ${ac.air_group_alt ?? 'N'} group ${ac.air_wing_alt ?? 'N'} wing ${ac.air_forse_alt ?? 'N'} force ${ac.air_command_alt ?? 'N'}`}</td>
+      <td>
+        <button
+          onClick={() => {
+            setEditAircraft(ac);
+            setOpenDialog(true);
+          }}
+        >
+          Edit
+        </button>
+      </td>
     </tr>
   );
 }

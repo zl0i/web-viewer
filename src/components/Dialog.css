@@ -1,0 +1,32 @@
+.dialog-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: none;
+}
+
+.dialog-visible {
+  display: flex;
+}
+
+/* body {
+  overflow-y: hidden;
+  overflow-x: hidden;
+} */
+
+.dialog {
+  width: max-content;
+  height: max-content;
+  background-color: #FFF;
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  padding: 8px;
+  color: #000;
+}

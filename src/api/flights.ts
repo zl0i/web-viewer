@@ -25,9 +25,27 @@ export type Aircrafts = {
     update_date: string
 }
 
-export async function fetchAllAircrafts(token: string) {
-    
+export type AircraftPhoto = {
+    id: number,
+    hexcode: string,
+    source_link: string,
+    own_link: string,
+    hash: string,
+    date: string,
+    location: string
+}
+
+export async function fetchAllAircrafts(token: string): Promise<Aircrafts[]> {
     const res = await axios.get(`https://${host}/api/flights-bot/aircrafts`, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+    return res.data
+}
+
+export async function fetchAircraftPhotos(token: string, hexcode: string): Promise<AircraftPhoto[]> {
+    const res = await axios.get(`https://${host}/api/flights-bot/flight-photos?hexcode=${hexcode}`, {
         headers: {
             Authorization: `Bearer ${token}`
         }
