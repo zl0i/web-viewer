@@ -29,7 +29,6 @@ export default function App() {
   });
 
   useMemo(() => {
-    console.log('memo');
     setFilteredAircrafts(
       aircrafts.filter((ac) => {
         let valid = true;
@@ -39,7 +38,7 @@ export default function App() {
         if (filter.reg && !ac.reg.match(new RegExp(filter.reg, 'gi'))) {
           return false;
         }
-        if (filter.type && !ac.type.match(new RegExp(filter.type, 'gi'))) {
+        if (filter.type && !(ac.type.match(new RegExp(filter.type, 'gi')) || ac.icao_type.match(new RegExp(filter.type, 'gi')) || ac.long_type.match(new RegExp(filter.type, 'gi')))) {
           return false;
         }
         if (filter.country && !ac.country.match(new RegExp(filter.country, 'gi'))) {
@@ -75,7 +74,6 @@ export default function App() {
         <button onClick={() => void auth.removeUser()}>Log out</button>
       </div>
       <div>{FilterAircrafts(filter, setFilter)}</div>
-      <div>{filter.hexcode}</div>
       <table>
         <thead>
           <tr>
