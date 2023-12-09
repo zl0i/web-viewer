@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useAuth, hasAuthParams } from 'react-oidc-context';
-import { AircraftPhoto, Aircrafts, fetchAircraftPhotos, fetchAllAircrafts } from './api/flights';
+import { AircraftPhoto, Aircrafts, fetchAircraftPhotos, fetchAllAircrafts, patchAircraft } from './api/flights';
 import AircraftRow from './components/AircraftRow';
 
 import './App.css';
@@ -22,6 +22,7 @@ export default function App() {
   const [photos, setPhotos] = useState([] as AircraftPhoto[]);
   const [filteredAircrafts, setFilteredAircrafts] = useState([] as Aircrafts[]);
   const [editAircraft, setEditAircraft] = useState(null as Aircrafts | null);
+  const [updateAircraft, setUpdateAircraft] = useState(null as Aircrafts | null);
 
   useMemo(() => {
     if (editAircraft) {
@@ -29,6 +30,19 @@ export default function App() {
       fetchAircraftPhotos(auth.user!.access_token, editAircraft.hexcode).then(setPhotos);
     }
   }, [editAircraft]);
+
+  useMemo(() => {
+    if (updateAircraft) {
+      patchAircraft(auth.user!.access_token, updateAircraft)
+        .then(() => {
+          setIsOpen(false);
+          const index = aircrafts.findIndex((a) => a.reg == updateAircraft.reg);
+          aircrafts[index] = updateAircraft;
+          setAircrafts(aircrafts);
+        })
+        .catch((err) => console.error(err));
+    }
+  }, [updateAircraft]);
 
   const [filter, setFilter] = useState({
     hexcode: null as null | string,
@@ -100,10 +114,10 @@ export default function App() {
             <th></th>
           </tr>
         </thead>
-        <tbody>{filteredAircrafts.map((ac) => AircraftRow(ac, setIsOpen, setEditAircraft))}</tbody>
+        <tbody>{filteredAircrafts.map((a) => AircraftRow(a, setIsOpen, setEditAircraft))}</tbody>
       </table>
 
-      <EditAircraftDialog {...{ aircraft: editAircraft, photos: photos, isOpen, setIsOpen }} />
+      <EditAircraftDialog {...{ aircraft: editAircraft, photos: photos, isOpen, setIsOpen, setUpdateAircraft }} />
     </div>
   );
 }

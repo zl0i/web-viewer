@@ -2,9 +2,12 @@ import { useMemo, useState } from 'react';
 import Dialog from './Dialog';
 
 import './EditAircraftDialog.css';
+import { Aircrafts } from '../api/flights';
 
-export default function EditAircraftDialog({ aircraft, photos, isOpen, setIsOpen }: any) {
+export default function EditAircraftDialog({ aircraft, photos, isOpen, setIsOpen, setUpdateAircraft }: any) {
   const [photoIndex, setPhotoIndex] = useState(0);
+
+  const updateAircraft = aircraft as Aircrafts;
 
   useMemo(() => {
     setPhotoIndex(0);
@@ -47,35 +50,35 @@ export default function EditAircraftDialog({ aircraft, photos, isOpen, setIsOpen
         <div className="force">
           <div>
             <span>squadron:</span>
-            <input type="text" defaultValue={aircraft ? aircraft.air_squadron : ''} />
+            <input type="text" defaultValue={aircraft ? aircraft.air_squadron : ''} onChange={(e) => (updateAircraft.air_squadron = e.target.value)} />
             <span>group:</span>
-            <input type="text" defaultValue={aircraft ? aircraft.air_group : ''} />
+            <input type="text" defaultValue={aircraft ? aircraft.air_group : ''} onChange={(e) => (updateAircraft.air_group = e.target.value)} />
             <span>wing:</span>
-            <input type="text" defaultValue={aircraft ? aircraft.air_wing : ''} />
+            <input type="text" defaultValue={aircraft ? aircraft.air_wing : ''} onChange={(e) => (updateAircraft.air_wing = e.target.value)} />
             <span>force:</span>
-            <input type="text" defaultValue={aircraft ? aircraft.air_forse : ''} />
+            <input type="text" defaultValue={aircraft ? aircraft.air_forse : ''} onChange={(e) => (updateAircraft.air_forse = e.target.value)} />
             <span>command:</span>
-            <input type="text" defaultValue={aircraft ? aircraft.air_command : ''} />
+            <input type="text" defaultValue={aircraft ? aircraft.air_command : ''} onChange={(e) => (updateAircraft.air_command = e.target.value)} />
             <span>airbase:</span>
-            <input type="text" defaultValue={aircraft ? aircraft.id_airbase : ''} />
+            <input type="number" defaultValue={aircraft ? aircraft.id_airbase : ''} onChange={(e) => (updateAircraft.id_airbase = Number(e.target.value))} />
           </div>
           <div>
             <span>alt_squadron:</span>
-            <input type="text" defaultValue={aircraft ? aircraft.air_squadron_alt : ''} />
+            <input type="text" defaultValue={aircraft ? aircraft.air_squadron_alt : ''} onChange={(e) => (updateAircraft.air_squadron_alt = e.target.value)} />
             <span>alt_group:</span>
-            <input type="text" defaultValue={aircraft ? aircraft.air_group_alt : ''} />
+            <input type="text" defaultValue={aircraft ? aircraft.air_group_alt : ''} onChange={(e) => (updateAircraft.air_group_alt = e.target.value)} />
             <span>alt_wing:</span>
-            <input type="text" defaultValue={aircraft ? aircraft.air_wing_alt : ''} />
+            <input type="text" defaultValue={aircraft ? aircraft.air_wing_alt : ''} onChange={(e) => (updateAircraft.air_wing_alt = e.target.value)} />
             <span>alt_force:</span>
-            <input type="text" defaultValue={aircraft ? aircraft.air_forse_alt : ''} />
+            <input type="text" defaultValue={aircraft ? aircraft.air_forse_alt : ''} onChange={(e) => (updateAircraft.air_forse_alt = e.target.value)} />
             <span>alt_command:</span>
-            <input type="text" defaultValue={aircraft ? aircraft.air_command_alt : ''} />
+            <input type="text" defaultValue={aircraft ? aircraft.air_command_alt : ''} onChange={(e) => (updateAircraft.air_command_alt = e.target.value)} />
             <span>alt_airbase:</span>
-            <input type="text" defaultValue={aircraft ? aircraft.id_airbase_alt : ''} />
+            <input type="number" defaultValue={aircraft ? aircraft.id_airbase_alt : ''} onChange={(e) => (updateAircraft.id_airbase_alt = Number(e.target.value))} />
           </div>
         </div>
         <div>
-          <button>Access</button>
+          <button onClick={() => setUpdateAircraft(updateAircraft)}>Access</button>
           <button onClick={() => setIsOpen(false)}>Cancel</button>
         </div>
       </div>

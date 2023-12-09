@@ -52,3 +52,13 @@ export async function fetchAircraftPhotos(token: string, hexcode: string): Promi
     })
     return res.data
 }
+
+export async function patchAircraft(token: string, aircraft: Aircrafts) {
+    console.log(aircraft)
+    const res = await axios.patch(`https://${host}/api/flights-bot/aircrafts/${aircraft.reg}`, aircraft, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+    return res.data
+}
