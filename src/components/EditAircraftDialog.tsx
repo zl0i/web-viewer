@@ -2,14 +2,14 @@ import { useMemo, useState } from 'react';
 import Dialog from './Dialog';
 
 import './EditAircraftDialog.css';
-import { Aircrafts } from '../api/flights';
 import { awForFC, fcForCM, sqForAW } from '../utils/airForceMapper';
 import { useAirbasesStore } from '../store/airbases';
 import debounce from 'debounce';
+import { Aircraft } from '../api/flightsV2';
 
 export default function EditAircraftDialog({ aircraft, photos, isOpen, setIsOpen, setUpdateAircraft }: any) {
   const [photoIndex, setPhotoIndex] = useState(0);
-  const [inAircraft, setInAircraft] = useState(aircraft as Aircrafts);
+  const [inAircraft, setInAircraft] = useState(aircraft as Aircraft);
 
   const [nameAirbase, setNameAirbase] = useState('');
   const [nameAirbaseAlt, setNameAirbaseAlt] = useState('');

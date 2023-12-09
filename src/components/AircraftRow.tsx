@@ -1,6 +1,7 @@
-import { Aircrafts } from '../api/flights';
+import { Aircraft } from "../api/flightsV2";
 
-export default function AircraftRow({ aircraft, setOpenDialog, setEditAircraft }: { aircraft: Aircrafts; setOpenDialog: (o: boolean) => void; setEditAircraft: Function }) {
+
+export default function AircraftRow({ aircraft, setOpenDialog, setEditAircraft }: { aircraft: Aircraft; setOpenDialog: (o: boolean) => void; setEditAircraft: Function }) {
   return (
     <tr key={aircraft.reg}>
       <td>{aircraft.hexcode}</td>

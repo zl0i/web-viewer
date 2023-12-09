@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useAuth, hasAuthParams } from 'react-oidc-context';
-import { AircraftPhoto, Aircrafts } from './api/flights';
 import AircraftRow from './components/AircraftRow';
 
 import './App.css';
@@ -8,7 +7,7 @@ import FilterAircrafts from './components/FilterAircrafts';
 import EditAircraftDialog from './components/EditAircraftDialog';
 import { parceAircraftsForMapper } from './utils/airForceMapper';
 import { useAirbasesStore } from './store/airbases';
-import { useFlightAPI } from './api/flightsV2';
+import { AircraftPhoto, Aircraft, useFlightAPI } from './api/flightsV2';
 
 export default function App() {
   const auth = useAuth();
@@ -23,11 +22,11 @@ export default function App() {
     }
   }, [auth, hasTriedSignin]);
 
-  const [aircrafts, setAircrafts] = useState([] as Aircrafts[]);
+  const [aircrafts, setAircrafts] = useState([] as Aircraft[]);
   const [photos, setPhotos] = useState([] as AircraftPhoto[]);
-  const [filteredAircrafts, setFilteredAircrafts] = useState([] as Aircrafts[]);
-  const [editAircraft, setEditAircraft] = useState({} as Aircrafts);
-  const [updateAircraft, setUpdateAircraft] = useState({} as Aircrafts);
+  const [filteredAircrafts, setFilteredAircrafts] = useState([] as Aircraft[]);
+  const [editAircraft, setEditAircraft] = useState({} as Aircraft);
+  const [updateAircraft, setUpdateAircraft] = useState({} as Aircraft);
   const fillAirbases = useAirbasesStore((state) => state.fill);
 
   useMemo(() => {

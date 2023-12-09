@@ -1,5 +1,4 @@
-import { Aircrafts } from "../api/flights"
-
+import { Aircraft } from "../api/flightsV2"
 
 type AirForceMapper = {
     [key: string]: string[]
@@ -10,7 +9,7 @@ const AW_2_FC: AirForceMapper = {}
 // const AW_2_AB: AirForceMapper = {}
 const FC_2_CM: AirForceMapper = {}
 
-export function parceAircraftsForMapper(aircrafts: Aircrafts[]) {
+export function parceAircraftsForMapper(aircrafts: Aircraft[]) {
     for (const aircraft of aircrafts) {
         if (aircraft.air_squadron?.length > 0 && aircraft.air_wing?.length > 0) {
             pushToMapper(SQ_2_AW, aircraft.air_squadron, aircraft.air_wing)

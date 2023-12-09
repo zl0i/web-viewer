@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { Airbase } from '../api/flights'
+import { Airbase } from '../api/flightsV2'
 
 
 interface AirbaseStore {
