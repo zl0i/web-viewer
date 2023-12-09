@@ -6,7 +6,6 @@ type AirForceMapper = {
 
 const SQ_2_AW: AirForceMapper = {}
 const AW_2_FC: AirForceMapper = {}
-// const AW_2_AB: AirForceMapper = {}
 const FC_2_CM: AirForceMapper = {}
 
 export function parceAircraftsForMapper(aircrafts: Aircraft[]) {
