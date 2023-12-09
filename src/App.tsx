@@ -6,6 +6,7 @@ import AircraftRow from './components/AircraftRow';
 import './App.css';
 import FilterAircrafts from './components/FilterAircrafts';
 import EditAircraftDialog from './components/EditAircraftDialog';
+import { parceAircraftsForMapper } from './utils/airForceMapper';
 
 export default function App() {
   const auth = useAuth();
@@ -21,18 +22,18 @@ export default function App() {
   const [aircrafts, setAircrafts] = useState([] as Aircrafts[]);
   const [photos, setPhotos] = useState([] as AircraftPhoto[]);
   const [filteredAircrafts, setFilteredAircrafts] = useState([] as Aircrafts[]);
-  const [editAircraft, setEditAircraft] = useState(null as Aircrafts | null);
-  const [updateAircraft, setUpdateAircraft] = useState(null as Aircrafts | null);
+  const [editAircraft, setEditAircraft] = useState({} as Aircrafts);
+  const [updateAircraft, setUpdateAircraft] = useState({} as Aircrafts);
 
   useMemo(() => {
-    if (editAircraft) {
+    if (editAircraft.reg) {
       setPhotos([]);
       fetchAircraftPhotos(auth.user!.access_token, editAircraft.hexcode).then(setPhotos);
     }
   }, [editAircraft]);
 
   useMemo(() => {
-    if (updateAircraft) {
+    if (updateAircraft.reg) {
       patchAircraft(auth.user!.access_token, updateAircraft)
         .then(() => {
           setIsOpen(false);
@@ -82,6 +83,7 @@ export default function App() {
     if (auth.user) {
       fetchAllAircrafts(auth.user?.access_token).then((aircrafts) => {
         setAircrafts(aircrafts);
+        parceAircraftsForMapper(aircrafts);
       });
     }
   }, [auth]);
@@ -106,7 +108,7 @@ export default function App() {
             <th>hexcode</th>
             <th>Reg</th>
             <th>Type</th>
-            <th>ICAO Type</th>
+            <th>ICAO</th>
             <th>Long Type</th>
             <th>Country</th>
             <th>Force</th>

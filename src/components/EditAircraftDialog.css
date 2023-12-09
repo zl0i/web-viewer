@@ -31,7 +31,7 @@
   left: 0;
   color: #fff;
   height: 0px;
-  text-shadow: 1px 1px 5px black ;
+  text-shadow: 1px 1px 5px black;
 }
 
 .force {
@@ -43,11 +43,15 @@
 .force div {
   display: flex;
   flex-direction: column;
-  margin: 8px;
+  margin: 8px 8px 8px 0px;
 }
 
-.photo-big {
-  max-width: 95vw;
-  max-height: 90vh;
-  object-fit: scale-down;
+.air-force-mapper {
+  font-size: 13px;
+}
+
+.dialog-button-box button {
+  margin-top: 10px;
+  margin-right: 10px;
+  padding: 5px 10px;
 }

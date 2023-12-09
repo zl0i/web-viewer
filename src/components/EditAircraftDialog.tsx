@@ -3,11 +3,11 @@ import Dialog from './Dialog';
 
 import './EditAircraftDialog.css';
 import { Aircrafts } from '../api/flights';
+import { awForFC, fcForCM, sqForAW } from '../utils/airForceMapper';
 
 export default function EditAircraftDialog({ aircraft, photos, isOpen, setIsOpen, setUpdateAircraft }: any) {
   const [photoIndex, setPhotoIndex] = useState(0);
-
-  const updateAircraft = aircraft as Aircrafts;
+  const [inAircraft, setInAircraft] = useState(aircraft as Aircrafts);
 
   useMemo(() => {
     setPhotoIndex(0);
@@ -49,49 +49,180 @@ export default function EditAircraftDialog({ aircraft, photos, isOpen, setIsOpen
         <div>
           <div>
             <div>
-              {aircraft?.type || aircraft?.icao_type} {aircraft?.country}
+              {inAircraft?.type || inAircraft?.icao_type} {inAircraft?.country}
             </div>
             <div>
               <div>type:</div>
-              <input type="text" defaultValue={aircraft ? aircraft.type : ''} onChange={(e) => (updateAircraft.type = e.target.value)} />
+              <input
+                type="text"
+                defaultValue={inAircraft ? inAircraft.type : ''}
+                onChange={(e) =>
+                  setInAircraft({
+                    ...inAircraft,
+                    type: e.target.value,
+                  })
+                }
+              />
             </div>
             <div>
               <div>long type:</div>
-              <input type="text" defaultValue={aircraft ? aircraft.long_type : ''} onChange={(e) => (updateAircraft.long_type = e.target.value)} />
+              <input
+                type="text"
+                defaultValue={inAircraft ? inAircraft.long_type : ''}
+                onChange={(e) =>
+                  setInAircraft({
+                    ...inAircraft,
+                    long_type: e.target.value,
+                  })
+                }
+              />
             </div>
           </div>
           <div className="force">
             <div>
               <span>squadron:</span>
-              <input type="text" defaultValue={aircraft ? aircraft.air_squadron : ''} onChange={(e) => (updateAircraft.air_squadron = e.target.value)} />
+              <input
+                type="text"
+                defaultValue={inAircraft ? inAircraft.air_squadron : ''}
+                onChange={(e) =>
+                  setInAircraft({
+                    ...inAircraft,
+                    air_squadron: e.target.value,
+                  })
+                }
+              />
               <span>group:</span>
-              <input type="text" defaultValue={aircraft ? aircraft.air_group : ''} onChange={(e) => (updateAircraft.air_group = e.target.value)} />
+              <input
+                type="text"
+                defaultValue={inAircraft ? inAircraft.air_group : ''}
+                onChange={(e) =>
+                  setInAircraft({
+                    ...inAircraft,
+                    air_group: e.target.value,
+                  })
+                }
+              />
               <span>wing:</span>
-              <input type="text" defaultValue={aircraft ? aircraft.air_wing : ''} onChange={(e) => (updateAircraft.air_wing = e.target.value)} />
+              <input
+                type="text"
+                defaultValue={inAircraft ? inAircraft.air_wing : ''}
+                onChange={(e) =>
+                  setInAircraft({
+                    ...inAircraft,
+                    air_wing: e.target.value,
+                  })
+                }
+              />
               <span>force:</span>
-              <input type="text" defaultValue={aircraft ? aircraft.air_forse : ''} onChange={(e) => (updateAircraft.air_forse = e.target.value)} />
+              <input
+                type="text"
+                defaultValue={inAircraft ? inAircraft.air_forse : ''}
+                onChange={(e) =>
+                  setInAircraft({
+                    ...inAircraft,
+                    air_forse: e.target.value,
+                  })
+                }
+              />
               <span>command:</span>
-              <input type="text" defaultValue={aircraft ? aircraft.air_command : ''} onChange={(e) => (updateAircraft.air_command = e.target.value)} />
+              <input
+                type="text"
+                defaultValue={inAircraft ? inAircraft.air_command : ''}
+                onChange={(e) =>
+                  setInAircraft({
+                    ...inAircraft,
+                    air_command: e.target.value,
+                  })
+                }
+              />
               <span>airbase:</span>
-              <input type="number" defaultValue={aircraft ? aircraft.id_airbase : ''} onChange={(e) => (updateAircraft.id_airbase = Number(e.target.value))} />
+              <input
+                type="number"
+                defaultValue={inAircraft ? inAircraft.id_airbase : ''}
+                onChange={(e) =>
+                  setInAircraft({
+                    ...inAircraft,
+                    id_airbase: Number(e.target.value),
+                  })
+                }
+              />
             </div>
             <div>
               <span>alt_squadron:</span>
-              <input type="text" defaultValue={aircraft ? aircraft.air_squadron_alt : ''} onChange={(e) => (updateAircraft.air_squadron_alt = e.target.value)} />
+              <input
+                type="text"
+                defaultValue={inAircraft ? inAircraft.air_squadron_alt : ''}
+                onChange={(e) =>
+                  setInAircraft({
+                    ...inAircraft,
+                    air_squadron_alt: e.target.value,
+                  })
+                }
+              />
               <span>alt_group:</span>
-              <input type="text" defaultValue={aircraft ? aircraft.air_group_alt : ''} onChange={(e) => (updateAircraft.air_group_alt = e.target.value)} />
+              <input
+                type="text"
+                defaultValue={inAircraft ? inAircraft.air_group_alt : ''}
+                onChange={(e) =>
+                  setInAircraft({
+                    ...inAircraft,
+                    air_group_alt: e.target.value,
+                  })
+                }
+              />
               <span>alt_wing:</span>
-              <input type="text" defaultValue={aircraft ? aircraft.air_wing_alt : ''} onChange={(e) => (updateAircraft.air_wing_alt = e.target.value)} />
+              <input
+                type="text"
+                defaultValue={inAircraft ? inAircraft.air_wing_alt : ''}
+                onChange={(e) =>
+                  setInAircraft({
+                    ...inAircraft,
+                    air_wing_alt: e.target.value,
+                  })
+                }
+              />
               <span>alt_force:</span>
-              <input type="text" defaultValue={aircraft ? aircraft.air_forse_alt : ''} onChange={(e) => (updateAircraft.air_forse_alt = e.target.value)} />
+              <input
+                type="text"
+                defaultValue={inAircraft ? inAircraft.air_forse_alt : ''}
+                onChange={(e) =>
+                  setInAircraft({
+                    ...inAircraft,
+                    air_forse_alt: e.target.value,
+                  })
+                }
+              />
               <span>alt_command:</span>
-              <input type="text" defaultValue={aircraft ? aircraft.air_command_alt : ''} onChange={(e) => (updateAircraft.air_command_alt = e.target.value)} />
+              <input
+                type="text"
+                defaultValue={inAircraft ? inAircraft.air_command_alt : ''}
+                onChange={(e) =>
+                  setInAircraft({
+                    ...inAircraft,
+                    air_command_alt: e.target.value,
+                  })
+                }
+              />
               <span>alt_airbase:</span>
-              <input type="number" defaultValue={aircraft ? aircraft.id_airbase_alt : ''} onChange={(e) => (updateAircraft.id_airbase_alt = Number(e.target.value))} />
+              <input
+                type="number"
+                defaultValue={inAircraft ? inAircraft.id_airbase_alt : ''}
+                onChange={(e) =>
+                  setInAircraft({
+                    ...inAircraft,
+                    id_airbase_alt: Number(e.target.value),
+                  })
+                }
+              />
             </div>
           </div>
-          <div>
-            <button onClick={() => setUpdateAircraft(updateAircraft)}>Access</button>
+          <div className="air-force-mapper">
+            <div>aw for current sq: {sqForAW(inAircraft?.air_squadron).join(', ') || 'unknown'}</div>
+            <div>fc for current aw: {awForFC(inAircraft?.air_wing).join(', ') || 'unknown'}</div>
+            <div>cm for current fc: {fcForCM(inAircraft?.air_forse).join(', ') || 'unknown'}</div>
+          </div>
+          <div className="dialog-button-box">
+            <button onClick={() => setUpdateAircraft(inAircraft)}>Access</button>
             <button onClick={() => setIsOpen(false)}>Cancel</button>
           </div>
         </div>
