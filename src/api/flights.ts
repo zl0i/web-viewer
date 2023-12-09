@@ -35,8 +35,29 @@ export type AircraftPhoto = {
     location: string
 }
 
+export type Airbase = {
+    id: number,
+    name: string,
+    lat: number,
+    lon: number,
+    country: string,
+    type: string,
+    icao: string,
+    elevation: number,
+    continent: string
+}
+
 export async function fetchAllAircrafts(token: string): Promise<Aircrafts[]> {
     const res = await axios.get(`https://${host}/api/flights-bot/aircrafts`, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+    return res.data
+}
+
+export async function fetchAllAirbases(token: string): Promise<Airbase[]> {
+    const res = await axios.get(`https://${host}/api/flights-bot/airbases`, {
         headers: {
             Authorization: `Bearer ${token}`
         }

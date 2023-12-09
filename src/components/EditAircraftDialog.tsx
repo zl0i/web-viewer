@@ -4,10 +4,19 @@ import Dialog from './Dialog';
 import './EditAircraftDialog.css';
 import { Aircrafts } from '../api/flights';
 import { awForFC, fcForCM, sqForAW } from '../utils/airForceMapper';
+import { useAirbasesStore } from '../store/airbases';
+import debounce from 'debounce';
 
 export default function EditAircraftDialog({ aircraft, photos, isOpen, setIsOpen, setUpdateAircraft }: any) {
   const [photoIndex, setPhotoIndex] = useState(0);
   const [inAircraft, setInAircraft] = useState(aircraft as Aircrafts);
+
+  const [nameAirbase, setNameAirbase] = useState('');
+  const [nameAirbaseAlt, setNameAirbaseAlt] = useState('');
+
+  const getAirbaseById = useAirbasesStore((state) => state.byId);
+  const getAirbaseByName = useAirbasesStore((state) => state.byName);
+  const matchAirbases = useAirbasesStore((state) => state.match);
 
   useMemo(() => {
     setInAircraft(aircraft);
@@ -140,16 +149,17 @@ export default function EditAircraftDialog({ aircraft, photos, isOpen, setIsOpen
                 }
               />
               <span>airbase:</span>
-              <input
-                type="number"
-                defaultValue={inAircraft ? inAircraft.id_airbase : ''}
-                onChange={(e) =>
-                  setInAircraft({
-                    ...inAircraft,
-                    id_airbase: Number(e.target.value),
-                  })
-                }
-              />
+              <input type="items" list="airbases" defaultValue={inAircraft ? getAirbaseById(inAircraft.id_airbase)?.name : ''} onChange={debounce((e) => setNameAirbase(e.target.value), 500)} />
+              <datalist id="airbases">
+                {matchAirbases(nameAirbase).map((a) => (
+                  <option value={a.name} key={a.id} />
+                ))}
+              </datalist>
+              <div className="air-force-mapper">
+                <div>aw for current sq: {sqForAW(inAircraft?.air_squadron).join(', ') || 'unknown'}</div>
+                <div>fc for current aw: {awForFC(inAircraft?.air_wing).join(', ') || 'unknown'}</div>
+                <div>cm for current fc: {fcForCM(inAircraft?.air_forse).join(', ') || 'unknown'}</div>
+              </div>
             </div>
             <div>
               <span>alt_squadron:</span>
@@ -209,24 +219,35 @@ export default function EditAircraftDialog({ aircraft, photos, isOpen, setIsOpen
               />
               <span>alt_airbase:</span>
               <input
-                type="number"
-                defaultValue={inAircraft ? inAircraft.id_airbase_alt : ''}
-                onChange={(e) =>
-                  setInAircraft({
-                    ...inAircraft,
-                    id_airbase_alt: Number(e.target.value),
-                  })
-                }
+                type="items"
+                list="alt_airbases"
+                defaultValue={inAircraft ? getAirbaseById(inAircraft.id_airbase_alt)?.name : ''}
+                onChange={debounce((e) => setNameAirbaseAlt(e.target.value), 500)}
               />
+              <datalist id="alt_airbases">
+                {matchAirbases(nameAirbaseAlt).map((a) => (
+                  <option value={a.name} key={a.id} />
+                ))}
+              </datalist>
+              <div className="air-force-mapper">
+                <div>aw for current sq: {sqForAW(inAircraft?.air_squadron_alt).join(', ') || 'unknown'}</div>
+                <div>fc for current aw: {awForFC(inAircraft?.air_wing_alt).join(', ') || 'unknown'}</div>
+                <div>cm for current fc: {fcForCM(inAircraft?.air_forse_alt).join(', ') || 'unknown'}</div>
+              </div>
             </div>
           </div>
-          <div className="air-force-mapper">
-            <div>aw for current sq: {sqForAW(inAircraft?.air_squadron).join(', ') || 'unknown'}</div>
-            <div>fc for current aw: {awForFC(inAircraft?.air_wing).join(', ') || 'unknown'}</div>
-            <div>cm for current fc: {fcForCM(inAircraft?.air_forse).join(', ') || 'unknown'}</div>
-          </div>
           <div className="dialog-button-box">
-            <button onClick={() => setUpdateAircraft(inAircraft)}>Access</button>
+            <button
+              onClick={() => {
+                setUpdateAircraft({
+                  ...inAircraft,
+                  id_airbase: getAirbaseByName(nameAirbase)?.id,
+                  id_airbase_alt: getAirbaseByName(nameAirbaseAlt)?.id,
+                });
+              }}
+            >
+              Update
+            </button>
             <button onClick={() => setIsOpen(false)}>Cancel</button>
           </div>
         </div>

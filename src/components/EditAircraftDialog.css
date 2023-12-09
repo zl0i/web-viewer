@@ -46,8 +46,9 @@
   margin: 8px 8px 8px 0px;
 }
 
-.air-force-mapper {
+.air-force-mapper div {
   font-size: 13px;
+  margin: 0;
 }
 
 .dialog-button-box button {

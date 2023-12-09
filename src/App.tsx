@@ -1,16 +1,20 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useAuth, hasAuthParams } from 'react-oidc-context';
-import { AircraftPhoto, Aircrafts, fetchAircraftPhotos, fetchAllAircrafts, patchAircraft } from './api/flights';
+import { AircraftPhoto, Aircrafts } from './api/flights';
 import AircraftRow from './components/AircraftRow';
 
 import './App.css';
 import FilterAircrafts from './components/FilterAircrafts';
 import EditAircraftDialog from './components/EditAircraftDialog';
 import { parceAircraftsForMapper } from './utils/airForceMapper';
+import { useAirbasesStore } from './store/airbases';
+import { useFlightAPI } from './api/flightsV2';
 
 export default function App() {
   const auth = useAuth();
   const [hasTriedSignin, setHasTriedSignin] = useState(false);
+
+  const flightAPI = useFlightAPI();
 
   useEffect(() => {
     if (!hasAuthParams() && !auth.isAuthenticated && !auth.activeNavigator && !auth.isLoading && !hasTriedSignin) {
@@ -24,17 +28,19 @@ export default function App() {
   const [filteredAircrafts, setFilteredAircrafts] = useState([] as Aircrafts[]);
   const [editAircraft, setEditAircraft] = useState({} as Aircrafts);
   const [updateAircraft, setUpdateAircraft] = useState({} as Aircrafts);
+  const fillAirbases = useAirbasesStore((state) => state.fill);
 
   useMemo(() => {
     if (editAircraft.reg) {
       setPhotos([]);
-      fetchAircraftPhotos(auth.user!.access_token, editAircraft.hexcode).then(setPhotos);
+      flightAPI.fetchAircraftPhotos(editAircraft.hexcode).then(setPhotos);
     }
   }, [editAircraft]);
 
   useMemo(() => {
     if (updateAircraft.reg) {
-      patchAircraft(auth.user!.access_token, updateAircraft)
+      flightAPI
+        .patchAircraft(updateAircraft)
         .then(() => {
           setIsOpen(false);
           const index = aircrafts.findIndex((a) => a.reg == updateAircraft.reg);
@@ -81,10 +87,11 @@ export default function App() {
 
   useEffect(() => {
     if (auth.user) {
-      fetchAllAircrafts(auth.user?.access_token).then((aircrafts) => {
+      flightAPI.fetchAllAircrafts().then((aircrafts) => {
         setAircrafts(aircrafts);
         parceAircraftsForMapper(aircrafts);
       });
+      flightAPI.fetchAllAirbases().then(fillAirbases);
     }
   }, [auth]);
 
