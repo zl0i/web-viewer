@@ -26,7 +26,6 @@ export default function App() {
   const [photos, setPhotos] = useState([] as AircraftPhoto[]);
   const [filteredAircrafts, setFilteredAircrafts] = useState([] as Aircraft[]);
   const [editAircraft, setEditAircraft] = useState({} as Aircraft);
-  const [updateAircraft, setUpdateAircraft] = useState({} as Aircraft);
   const fillAirbases = useAirbasesStore((state) => state.fill);
 
   useMemo(() => {
@@ -36,19 +35,27 @@ export default function App() {
     }
   }, [editAircraft]);
 
-  useMemo(() => {
-    if (updateAircraft.reg) {
+  function patchAircraft(aircraft: Aircraft) {
+    if (aircraft.reg) {
       flightAPI
-        .patchAircraft(updateAircraft)
+        .patchAircraft(aircraft)
         .then(() => {
           setIsOpen(false);
-          const index = aircrafts.findIndex((a) => a.reg == updateAircraft.reg);
-          aircrafts[index] = updateAircraft;
+          const index = aircrafts.findIndex((a) => a.reg == aircraft.reg);
+          aircrafts[index] = aircraft;
           setAircrafts(aircrafts);
         })
         .catch((err) => console.error(err));
     }
-  }, [updateAircraft]);
+  }
+
+  function nextAircraft(from_reg: string) {
+    const index = filteredAircrafts.findIndex((a) => a.reg == from_reg);
+    const newEditAircraft = filteredAircrafts[index + 1];
+    if (newEditAircraft) {
+      setEditAircraft(newEditAircraft);
+    }
+  }
 
   const [filter, setFilter] = useState({
     hexcode: null as null | string,
@@ -125,7 +132,7 @@ export default function App() {
         <tbody>{filteredAircrafts.map((a) => AircraftRow({ aircraft: a, setOpenDialog: setIsOpen, setEditAircraft }))}</tbody>
       </table>
 
-      <EditAircraftDialog {...{ aircraft: editAircraft, photos: photos, isOpen, setIsOpen, setUpdateAircraft }} />
+      <EditAircraftDialog {...{ aircraft: editAircraft, photos: photos, isOpen, setIsOpen, patchAircraft, nextAircraft }} />
     </div>
   );
 }
