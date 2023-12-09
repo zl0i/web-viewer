@@ -47,7 +47,7 @@ export default function EditAircraftDialog({ aircraft, photos, isOpen, setIsOpen
             {photos.length == 0 ? (
               'No photos'
             ) : (
-              <div>
+              <div className="air-photo" >
                 <img src={photos[photoIndex]?.source_link}></img>
                 <span>{photos[photoIndex]?.date}</span>
               </div>
