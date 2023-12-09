@@ -1,4 +1,4 @@
-.air-phots {
+.air-photo {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -14,10 +14,19 @@
   margin: 5px 5px 5px 0px;
 }
 
-.air-phots img {
+.air-photo div img {
   max-width: 600px;
   height: 400px;
   object-fit: scale-down;
+}
+
+.air-photo div span {
+  position: relative;
+  z-index: 99;
+  bottom: 30px;
+  left: 0;
+  color: #fff;
+  text-shadow: 1px 1px 5px black ;
 }
 
 .force {

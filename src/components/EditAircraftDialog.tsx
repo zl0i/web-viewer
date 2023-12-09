@@ -26,7 +26,16 @@ export default function EditAircraftDialog({ aircraft, photos, isOpen, setIsOpen
       }}
     >
       <div>
-        <div className="air-phots">{photos.length == 0 ? 'No photos' : <img src={photos[photoIndex]?.source_link}></img>}</div>
+        <div className="air-photo">
+          {photos.length == 0 ? (
+            'No photos'
+          ) : (
+            <div>
+              <img src={photos[photoIndex]?.source_link}></img>
+              <span>{photos[photoIndex]?.date}</span>
+            </div>
+          )}
+        </div>
         <div className="air-photos-control">
           <span>{`${photoIndex + 1}/${photos?.length}`}</span>
           <button onClick={prevPhoto}>Prev</button>
@@ -37,7 +46,6 @@ export default function EditAircraftDialog({ aircraft, photos, isOpen, setIsOpen
         </div>
         <div className="force">
           <div>
-            <h4 style={{ margin: '5px' }}>Force:</h4>
             <span>squadron:</span>
             <input type="text" defaultValue={aircraft ? aircraft.air_squadron : ''} />
             <span>group:</span>
@@ -48,19 +56,22 @@ export default function EditAircraftDialog({ aircraft, photos, isOpen, setIsOpen
             <input type="text" defaultValue={aircraft ? aircraft.air_forse : ''} />
             <span>command:</span>
             <input type="text" defaultValue={aircraft ? aircraft.air_command : ''} />
+            <span>airbase:</span>
+            <input type="text" defaultValue={aircraft ? aircraft.id_airbase : ''} />
           </div>
           <div>
-            <h4 style={{ margin: '5px' }}>Alt force:</h4>
-            <span>squadron:</span>
+            <span>alt_squadron:</span>
             <input type="text" defaultValue={aircraft ? aircraft.air_squadron_alt : ''} />
-            <span>group:</span>
+            <span>alt_group:</span>
             <input type="text" defaultValue={aircraft ? aircraft.air_group_alt : ''} />
-            <span>wing:</span>
+            <span>alt_wing:</span>
             <input type="text" defaultValue={aircraft ? aircraft.air_wing_alt : ''} />
-            <span>force:</span>
+            <span>alt_force:</span>
             <input type="text" defaultValue={aircraft ? aircraft.air_forse_alt : ''} />
-            <span>command:</span>
+            <span>alt_command:</span>
             <input type="text" defaultValue={aircraft ? aircraft.air_command_alt : ''} />
+            <span>alt_airbase:</span>
+            <input type="text" defaultValue={aircraft ? aircraft.id_airbase_alt : ''} />
           </div>
         </div>
         <div>
