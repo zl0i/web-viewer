@@ -1,9 +1,14 @@
+.edit-aircraft-dialog {
+  display: flex;
+}
+
 .air-photo {
   display: flex;
   justify-content: center;
   align-items: center;
-  max-width: 600px;
-  height: 400px;
+  width: 65vw;
+  position: relative;
+  margin-right: 10px;
 }
 
 .air-photos-control {
@@ -15,17 +20,17 @@
 }
 
 .air-photo div img {
-  max-width: 600px;
-  height: 400px;
+  width: 100%;
   object-fit: scale-down;
 }
 
 .air-photo div span {
-  position: relative;
+  position: absolute;
   z-index: 99;
   bottom: 30px;
   left: 0;
   color: #fff;
+  height: 0px;
   text-shadow: 1px 1px 5px black ;
 }
 
@@ -39,4 +44,10 @@
   display: flex;
   flex-direction: column;
   margin: 8px;
+}
+
+.photo-big {
+  max-width: 95vw;
+  max-height: 90vh;
+  object-fit: scale-down;
 }
