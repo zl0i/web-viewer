@@ -10,6 +10,10 @@ export default function EditAircraftDialog({ aircraft, photos, isOpen, setIsOpen
   const [inAircraft, setInAircraft] = useState(aircraft as Aircrafts);
 
   useMemo(() => {
+    setInAircraft(aircraft);
+  }, [aircraft]);
+
+  useMemo(() => {
     setPhotoIndex(0);
   }, [photos]);
 
@@ -49,7 +53,7 @@ export default function EditAircraftDialog({ aircraft, photos, isOpen, setIsOpen
         <div>
           <div>
             <div>
-              {inAircraft?.type || inAircraft?.icao_type} {inAircraft?.country}
+              {inAircraft?.type || inAircraft?.icao_type} {inAircraft?.country} ({inAircraft.reg},{inAircraft.hexcode})
             </div>
             <div>
               <div>type:</div>

@@ -101,7 +101,7 @@ export default function App() {
       <div>
         <button onClick={() => void auth.removeUser()}>Log out</button>
       </div>
-      <div>{FilterAircrafts(filter, setFilter)}</div>
+      <FilterAircrafts {...{ filter, setFilter }}></FilterAircrafts>
       <table>
         <thead>
           <tr>
@@ -116,7 +116,7 @@ export default function App() {
             <th></th>
           </tr>
         </thead>
-        <tbody>{filteredAircrafts.map((a) => AircraftRow(a, setIsOpen, setEditAircraft))}</tbody>
+        <tbody>{filteredAircrafts.map((a) => AircraftRow({ aircraft: a, setOpenDialog: setIsOpen, setEditAircraft }))}</tbody>
       </table>
 
       <EditAircraftDialog {...{ aircraft: editAircraft, photos: photos, isOpen, setIsOpen, setUpdateAircraft }} />

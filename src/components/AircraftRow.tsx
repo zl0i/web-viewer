@@ -1,20 +1,22 @@
 import { Aircrafts } from '../api/flights';
 
-export default function AircraftRow(ac: Aircrafts, setOpenDialog: (o: boolean) => void, setEditAircraft: Function) {
+export default function AircraftRow({ aircraft, setOpenDialog, setEditAircraft }: { aircraft: Aircrafts; setOpenDialog: (o: boolean) => void; setEditAircraft: Function }) {
   return (
-    <tr key={ac.reg}>
-      <td>{ac.hexcode}</td>
-      <td>{ac.reg}</td>
-      <td>{ac.type}</td>
-      <td>{ac.icao_type}</td>
-      <td>{ac.long_type}</td>
-      <td>{ac.country}</td>
-      <td>{`${ac.air_squadron ?? 'N'} sq ${ac.air_group ?? 'N'} group ${ac.air_wing ?? 'N'} wing ${ac.air_forse ?? 'N'} force ${ac.air_command ?? 'N'}`}</td>
-      <td>{`${ac.air_squadron_alt ?? 'N'} sq ${ac.air_group_alt ?? 'N'} group ${ac.air_wing_alt ?? 'N'} wing ${ac.air_forse_alt ?? 'N'} force ${ac.air_command_alt ?? 'N'}`}</td>
+    <tr key={aircraft.reg}>
+      <td>{aircraft.hexcode}</td>
+      <td>{aircraft.reg}</td>
+      <td>{aircraft.type}</td>
+      <td>{aircraft.icao_type}</td>
+      <td>{aircraft.long_type}</td>
+      <td>{aircraft.country}</td>
+      <td>{`${aircraft.air_squadron ?? 'N'} sq ${aircraft.air_group ?? 'N'} group ${aircraft.air_wing ?? 'N'} wing ${aircraft.air_forse ?? 'N'} force ${aircraft.air_command ?? 'N'}`}</td>
+      <td>{`${aircraft.air_squadron_alt ?? 'N'} sq ${aircraft.air_group_alt ?? 'N'} group ${aircraft.air_wing_alt ?? 'N'} wing ${aircraft.air_forse_alt ?? 'N'} force ${
+        aircraft.air_command_alt ?? 'N'
+      }`}</td>
       <td>
         <button
           onClick={() => {
-            setEditAircraft(ac);
+            setEditAircraft(aircraft);
             setOpenDialog(true);
           }}
         >

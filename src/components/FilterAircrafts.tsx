@@ -1,6 +1,7 @@
 import debounce from 'debounce';
+import { memo } from 'react';
 
-export default function FilterAircrafts(filter: any, setFilter: Function) {
+export default memo(function ({ filter, setFilter }: { filter: any; setFilter: Function }) {
   return (
     <div>
       <div>Filter</div>
@@ -54,4 +55,4 @@ export default function FilterAircrafts(filter: any, setFilter: Function) {
       </div>
     </div>
   );
-}
+});
