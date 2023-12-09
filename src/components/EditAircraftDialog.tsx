@@ -7,7 +7,7 @@ import { useAirbasesStore } from '../store/airbases';
 import debounce from 'debounce';
 import { Aircraft } from '../api/flightsV2';
 
-export default function EditAircraftDialog({ aircraft, photos, isOpen, setIsOpen, patchAircraft, nextAircraft }: any) {
+export default function EditAircraftDialog({ aircraft, photos, isOpen, setIsOpen, patchAircraft, nextAircraft, deleteAircraftPhoto }: any) {
   const [photoIndex, setPhotoIndex] = useState(0);
   const [inAircraft, setInAircraft] = useState(aircraft as Aircraft);
 
@@ -47,7 +47,7 @@ export default function EditAircraftDialog({ aircraft, photos, isOpen, setIsOpen
             {photos.length == 0 ? (
               'No photos'
             ) : (
-              <div className="air-photo" >
+              <div className="air-photo">
                 <img src={photos[photoIndex]?.source_link}></img>
                 <span>{photos[photoIndex]?.date}</span>
               </div>
@@ -57,6 +57,7 @@ export default function EditAircraftDialog({ aircraft, photos, isOpen, setIsOpen
             <span>{`${photoIndex + 1}/${photos?.length}`}</span>
             <button onClick={prevPhoto}>Prev</button>
             <button onClick={nextPhoto}>Next</button>
+            <button onClick={() => deleteAircraftPhoto(photos[photoIndex].id)}>Delete</button>
           </div>
         </div>
         <div>
@@ -255,7 +256,7 @@ export default function EditAircraftDialog({ aircraft, photos, isOpen, setIsOpen
                   id_airbase: getAirbaseByName(nameAirbase)?.id,
                   id_airbase_alt: getAirbaseByName(nameAirbaseAlt)?.id,
                 });
-                nextAircraft(inAircraft.reg)
+                nextAircraft(inAircraft.reg);
               }}
             >
               Update and Next

@@ -52,7 +52,7 @@ export function useFlightAPI() {
     const auth = useAuth()
 
     return {
-        fetchAllAircrafts: async () => {
+        fetchAllAircrafts: async (): Promise<Aircraft[]> => {
             const res = await axios.get(`https://${host}/api/flights-bot/aircrafts`, {
                 headers: {
                     Authorization: `Bearer ${auth.user?.access_token}`
@@ -60,7 +60,7 @@ export function useFlightAPI() {
             })
             return res.data
         },
-        fetchAllAirbases: async () => {
+        fetchAllAirbases: async (): Promise<Airbase[]> => {
             const res = await axios.get(`https://${host}/api/flights-bot/airbases`, {
                 headers: {
                     Authorization: `Bearer ${auth.user?.access_token}`
@@ -68,7 +68,7 @@ export function useFlightAPI() {
             })
             return res.data
         },
-        fetchAircraftPhotos: async (hexcode: string) => {
+        fetchAircraftPhotos: async (hexcode: string): Promise<AircraftPhoto[]> => {
             const res = await axios.get(`https://${host}/api/flights-bot/flight-photos?hexcode=${hexcode}`, {
                 headers: {
                     Authorization: `Bearer ${auth.user?.access_token}}`
@@ -76,7 +76,15 @@ export function useFlightAPI() {
             })
             return res.data
         },
-        patchAircraft: async (aircraft: Aircraft) => {
+        deleteAircraftPhoto: async (id: number) => {
+            const res = await axios.delete(`https://${host}/api/flights-bot/flight-photos/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${auth.user?.access_token}}`
+                }
+            })
+            return res.data
+        },
+        patchAircraft: async (aircraft: Aircraft): Promise<Aircraft> => {
             const res = await axios.patch(`https://${host}/api/flights-bot/aircrafts/${aircraft.reg}`, aircraft, {
                 headers: {
                     Authorization: `Bearer ${auth.user?.access_token}`

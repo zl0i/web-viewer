@@ -57,6 +57,15 @@ export default function App() {
     }
   }
 
+  function deleteAircraftPhoto(id: number) {
+    flightAPI
+      .deleteAircraftPhoto(id)
+      .then(() => flightAPI.fetchAircraftPhotos(editAircraft.hexcode))
+      .then((data) => {
+        setPhotos(data);
+      });
+  }
+
   const [filter, setFilter] = useState({
     hexcode: null as null | string,
     reg: null as null | string,
@@ -132,7 +141,7 @@ export default function App() {
         <tbody>{filteredAircrafts.map((a) => AircraftRow({ aircraft: a, setOpenDialog: setIsOpen, setEditAircraft }))}</tbody>
       </table>
 
-      <EditAircraftDialog {...{ aircraft: editAircraft, photos: photos, isOpen, setIsOpen, patchAircraft, nextAircraft }} />
+      <EditAircraftDialog {...{ aircraft: editAircraft, photos: photos, isOpen, setIsOpen, patchAircraft, nextAircraft, deleteAircraftPhoto }} />
     </div>
   );
 }
