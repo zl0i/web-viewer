@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Dialog from './Dialog';
 
 import './EditAircraftDialog.css';
@@ -21,6 +21,10 @@ export default function EditAircraftDialog({ aircraft, photos, isOpen, setIsOpen
   useMemo(() => {
     setInAircraft(aircraft);
   }, [aircraft]);
+
+  useMemo(() => {
+    console.log(inAircraft);
+  }, [inAircraft]);
 
   useMemo(() => {
     setPhotoIndex(0);
@@ -70,10 +74,10 @@ export default function EditAircraftDialog({ aircraft, photos, isOpen, setIsOpen
               <input
                 type="text"
                 defaultValue={inAircraft ? inAircraft.type : ''}
-                onChange={(e) =>
+                onInput={(e) =>
                   setInAircraft({
                     ...inAircraft,
-                    type: e.target.value,
+                    type: e.currentTarget.value,
                   })
                 }
               />
@@ -83,10 +87,10 @@ export default function EditAircraftDialog({ aircraft, photos, isOpen, setIsOpen
               <input
                 type="text"
                 defaultValue={inAircraft ? inAircraft.long_type : ''}
-                onChange={(e) =>
+                onInput={(e) =>
                   setInAircraft({
                     ...inAircraft,
-                    long_type: e.target.value,
+                    long_type: e.currentTarget.value,
                   })
                 }
               />
@@ -98,10 +102,10 @@ export default function EditAircraftDialog({ aircraft, photos, isOpen, setIsOpen
               <input
                 type="text"
                 defaultValue={inAircraft ? inAircraft.air_squadron : ''}
-                onChange={(e) =>
+                onInput={(e) =>
                   setInAircraft({
                     ...inAircraft,
-                    air_squadron: e.target.value,
+                    air_squadron: e.currentTarget.value,
                   })
                 }
               />
@@ -109,10 +113,10 @@ export default function EditAircraftDialog({ aircraft, photos, isOpen, setIsOpen
               <input
                 type="text"
                 defaultValue={inAircraft ? inAircraft.air_group : ''}
-                onChange={(e) =>
+                onInput={(e) =>
                   setInAircraft({
                     ...inAircraft,
-                    air_group: e.target.value,
+                    air_group: e.currentTarget.value,
                   })
                 }
               />
@@ -120,10 +124,10 @@ export default function EditAircraftDialog({ aircraft, photos, isOpen, setIsOpen
               <input
                 type="text"
                 defaultValue={inAircraft ? inAircraft.air_wing : ''}
-                onChange={(e) =>
+                onInput={(e) =>
                   setInAircraft({
                     ...inAircraft,
-                    air_wing: e.target.value,
+                    air_wing: e.currentTarget.value,
                   })
                 }
               />
@@ -131,10 +135,10 @@ export default function EditAircraftDialog({ aircraft, photos, isOpen, setIsOpen
               <input
                 type="text"
                 defaultValue={inAircraft ? inAircraft.air_forse : ''}
-                onChange={(e) =>
+                onInput={(e) =>
                   setInAircraft({
                     ...inAircraft,
-                    air_forse: e.target.value,
+                    air_forse: e.currentTarget.value,
                   })
                 }
               />
@@ -142,15 +146,15 @@ export default function EditAircraftDialog({ aircraft, photos, isOpen, setIsOpen
               <input
                 type="text"
                 defaultValue={inAircraft ? inAircraft.air_command : ''}
-                onChange={(e) =>
+                onInput={(e) =>
                   setInAircraft({
                     ...inAircraft,
-                    air_command: e.target.value,
+                    air_command: e.currentTarget.value,
                   })
                 }
               />
               <span>airbase:</span>
-              <input type="items" list="airbases" defaultValue={inAircraft ? getAirbaseById(inAircraft.id_airbase)?.name : ''} onChange={debounce((e) => setNameAirbase(e.target.value), 500)} />
+              <input type="items" list="airbases" defaultValue={inAircraft ? getAirbaseById(inAircraft.id_airbase)?.name : ''} onInput={debounce((e) => setNameAirbase(e.target.value), 500)} />
               <datalist id="airbases">
                 {matchAirbases(nameAirbase).map((a) => (
                   <option value={a.name} key={a.id} />
@@ -167,10 +171,10 @@ export default function EditAircraftDialog({ aircraft, photos, isOpen, setIsOpen
               <input
                 type="text"
                 defaultValue={inAircraft ? inAircraft.air_squadron_alt : ''}
-                onChange={(e) =>
+                onInput={(e) =>
                   setInAircraft({
                     ...inAircraft,
-                    air_squadron_alt: e.target.value,
+                    air_squadron_alt: e.currentTarget.value,
                   })
                 }
               />
@@ -178,10 +182,10 @@ export default function EditAircraftDialog({ aircraft, photos, isOpen, setIsOpen
               <input
                 type="text"
                 defaultValue={inAircraft ? inAircraft.air_group_alt : ''}
-                onChange={(e) =>
+                onInput={(e) =>
                   setInAircraft({
                     ...inAircraft,
-                    air_group_alt: e.target.value,
+                    air_group_alt: e.currentTarget.value,
                   })
                 }
               />
@@ -189,10 +193,10 @@ export default function EditAircraftDialog({ aircraft, photos, isOpen, setIsOpen
               <input
                 type="text"
                 defaultValue={inAircraft ? inAircraft.air_wing_alt : ''}
-                onChange={(e) =>
+                onInput={(e) =>
                   setInAircraft({
                     ...inAircraft,
-                    air_wing_alt: e.target.value,
+                    air_wing_alt: e.currentTarget.value,
                   })
                 }
               />
@@ -200,10 +204,10 @@ export default function EditAircraftDialog({ aircraft, photos, isOpen, setIsOpen
               <input
                 type="text"
                 defaultValue={inAircraft ? inAircraft.air_forse_alt : ''}
-                onChange={(e) =>
+                onInput={(e) =>
                   setInAircraft({
                     ...inAircraft,
-                    air_forse_alt: e.target.value,
+                    air_forse_alt: e.currentTarget.value,
                   })
                 }
               />
@@ -211,10 +215,10 @@ export default function EditAircraftDialog({ aircraft, photos, isOpen, setIsOpen
               <input
                 type="text"
                 defaultValue={inAircraft ? inAircraft.air_command_alt : ''}
-                onChange={(e) =>
+                onInput={(e) =>
                   setInAircraft({
                     ...inAircraft,
-                    air_command_alt: e.target.value,
+                    air_command_alt: e.currentTarget.value,
                   })
                 }
               />
@@ -223,7 +227,7 @@ export default function EditAircraftDialog({ aircraft, photos, isOpen, setIsOpen
                 type="items"
                 list="alt_airbases"
                 defaultValue={inAircraft ? getAirbaseById(inAircraft.id_airbase_alt)?.name : ''}
-                onChange={debounce((e) => setNameAirbaseAlt(e.target.value), 500)}
+                onInput={debounce((e) => setNameAirbaseAlt(e.target.value), 500)}
               />
               <datalist id="alt_airbases">
                 {matchAirbases(nameAirbaseAlt).map((a) => (

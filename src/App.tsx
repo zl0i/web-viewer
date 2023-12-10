@@ -30,6 +30,7 @@ export default function App() {
 
   useMemo(() => {
     if (editAircraft.reg) {
+      console.log('update photo')
       setPhotos([]);
       flightAPI.fetchAircraftPhotos(editAircraft.hexcode).then(setPhotos);
     }
@@ -57,6 +58,7 @@ export default function App() {
     const index = filteredAircrafts.findIndex((a) => a.reg == from_reg);
     const newEditAircraft = filteredAircrafts[index + 1];
     if (newEditAircraft) {
+      console.log('set edit aircraft')
       setEditAircraft(newEditAircraft);
     }
   }
