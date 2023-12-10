@@ -49,6 +49,29 @@ export default memo(function ({ filter, setFilter }: { filter: any; setFilter: F
             });
           }, 500)}
         />
+        <span>Last update:</span>
+        <select
+          name="last_update"
+          id="last_update"
+          onChange={(event) => {
+            setFilter({
+              ...filter,
+              last_update_sign: event.target.value,
+            });
+          }}
+        >
+          <option value="after">After</option>
+          <option value="before">Before</option>
+        </select>
+        <input
+          type="date"
+          onChange={debounce((event) => {
+            setFilter({
+              ...filter,
+              last_update: event.target.value,
+            });
+          }, 500)}
+        />
 
         {/* <span>Force:</span> */}
         {/* <input type="text" /> */}

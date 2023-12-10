@@ -76,6 +76,8 @@ export default function App() {
     type: null as null | string,
     country: null as null | string,
     force: null as null | string,
+    last_update_sign: 'after' as 'before' | 'after',
+    last_update: null as null | string,
   });
 
   useMemo(() => {
@@ -93,6 +95,13 @@ export default function App() {
         }
         if (filter.country && !ac.country.match(new RegExp(filter.country, 'gi'))) {
           return false;
+        }
+        if (filter.last_update) {
+          if (filter.last_update_sign == 'after' && new Date(ac.update_date).getTime() < new Date(filter.last_update).getTime()) {
+            return false;
+          } else if (filter.last_update_sign == 'before' && new Date(ac.update_date).getTime() > new Date(filter.last_update).getTime()) {
+            return false;
+          }
         }
         // if (filter.force && ac.air.includes(filter.force)) {
         //   valid = true;
