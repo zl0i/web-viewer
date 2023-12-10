@@ -35,15 +35,19 @@ export default function App() {
     }
   }, [editAircraft]);
 
-  function patchAircraft(aircraft: Aircraft) {
+  function patchAircraft(aircraft: Aircraft, next: boolean = false) {
     if (aircraft.reg) {
       flightAPI
         .patchAircraft(aircraft)
         .then(() => {
-          setIsOpen(false);
           const index = aircrafts.findIndex((a) => a.reg == aircraft.reg);
           aircrafts[index] = aircraft;
           setAircrafts(aircrafts);
+          if (next) {
+            nextAircraft(aircraft.reg);
+          } else {
+            setIsOpen(false);
+          }
         })
         .catch((err) => console.error(err));
     }
