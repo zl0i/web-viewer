@@ -10,38 +10,44 @@ const AW_2_CM: AirForceMapper = {}
 
 export function parceAircraftsForMapper(aircrafts: Aircraft[]) {
     for (const aircraft of aircrafts) {
-        if (aircraft.air_squadron?.length > 0 && aircraft.air_wing?.length > 0) {
+        if (aircraft.air_squadron && aircraft.air_wing) {
             pushToMapper(AW_2_SQ, aircraft.air_wing, aircraft.air_squadron)
         }
-        if (aircraft.air_wing?.length > 0 && aircraft.air_forse?.length > 0) {
+        if (aircraft.air_wing && aircraft.air_forse) {
             pushToMapper(AW_2_FC, aircraft.air_wing, aircraft.air_forse)
         }
-        if (aircraft.air_wing?.length > 0 && aircraft.air_command?.length > 0) {
+        if (aircraft.air_wing && aircraft.air_command) {
             pushToMapper(AW_2_CM, aircraft.air_wing, aircraft.air_command)
         }
 
 
-        if (aircraft.air_squadron_alt?.length > 0 && aircraft.air_wing_alt?.length > 0) {
+        if (aircraft.air_squadron_alt && aircraft.air_wing_alt) {
             pushToMapper(AW_2_SQ, aircraft.air_wing_alt, aircraft.air_squadron_alt)
         }
-        if (aircraft.air_wing_alt?.length > 0 && aircraft.air_forse_alt?.length > 0) {
+        if (aircraft.air_wing_alt && aircraft.air_forse_alt) {
             pushToMapper(AW_2_FC, aircraft.air_wing_alt, aircraft.air_forse_alt)
         }
-        if (aircraft.air_wing_alt?.length > 0 && aircraft.air_command_alt?.length > 0) {
+        if (aircraft.air_wing_alt && aircraft.air_command_alt) {
             pushToMapper(AW_2_CM, aircraft.air_wing_alt, aircraft.air_command_alt)
         }
     }
 }
 
-export function sqForAW(aw: string) {
+export function sqForAW(aw: string | null) {
+    if (!aw)
+        return []
     return AW_2_SQ[aw] ?? []
 }
 
-export function awForFC(aw: string) {
+export function afForAW(aw: string | null) {
+    if (!aw)
+        return []
     return AW_2_FC[aw] ?? []
 }
 
-export function awForCM(aw: string) {
+export function cmForAW(aw: string | null) {
+    if (!aw)
+        return []
     return AW_2_CM[aw] ?? []
 }
 
