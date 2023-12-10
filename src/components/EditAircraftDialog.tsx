@@ -1,8 +1,8 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import Dialog from './Dialog';
 
 import './EditAircraftDialog.css';
-import { awForFC, fcForCM, sqForAW } from '../utils/airForceMapper';
+import { awForCM, awForFC, sqForAW } from '../utils/airForceMapper';
 import { useAirbasesStore } from '../store/airbases';
 import debounce from 'debounce';
 import { Aircraft } from '../api/flightsV2';
@@ -21,10 +21,6 @@ export default function EditAircraftDialog({ aircraft, photos, isOpen, setIsOpen
   useMemo(() => {
     setInAircraft(aircraft);
   }, [aircraft]);
-
-  useMemo(() => {
-    console.log(inAircraft);
-  }, [inAircraft]);
 
   useMemo(() => {
     setPhotoIndex(0);
@@ -161,9 +157,9 @@ export default function EditAircraftDialog({ aircraft, photos, isOpen, setIsOpen
                 ))}
               </datalist>
               <div className="air-force-mapper">
-                <div>aw for current sq: {sqForAW(inAircraft?.air_squadron).join(', ') || 'unknown'}</div>
+                <div>sq for current aw: {sqForAW(inAircraft?.air_wing).join(', ') || 'unknown'}</div>
                 <div>fc for current aw: {awForFC(inAircraft?.air_wing).join(', ') || 'unknown'}</div>
-                <div>cm for current fc: {fcForCM(inAircraft?.air_forse).join(', ') || 'unknown'}</div>
+                <div>cm for current aw: {awForCM(inAircraft?.air_forse).join(', ') || 'unknown'}</div>
               </div>
             </div>
             <div>
@@ -235,9 +231,9 @@ export default function EditAircraftDialog({ aircraft, photos, isOpen, setIsOpen
                 ))}
               </datalist>
               <div className="air-force-mapper">
-                <div>aw for current sq: {sqForAW(inAircraft?.air_squadron_alt).join(', ') || 'unknown'}</div>
+                <div>sq for current aw: {sqForAW(inAircraft?.air_wing_alt).join(', ') || 'unknown'}</div>
                 <div>fc for current aw: {awForFC(inAircraft?.air_wing_alt).join(', ') || 'unknown'}</div>
-                <div>cm for current fc: {fcForCM(inAircraft?.air_forse_alt).join(', ') || 'unknown'}</div>
+                <div>cm for current aw: {awForCM(inAircraft?.air_forse_alt).join(', ') || 'unknown'}</div>
               </div>
             </div>
           </div>
