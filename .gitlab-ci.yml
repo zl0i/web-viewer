@@ -1,0 +1,23 @@
+include:
+  - project: "zl0i/gitlab-ci-template"
+    ref: main
+    file: "build.template.yaml"
+  - project: "zl0i/gitlab-ci-template"
+    ref: main
+    file: "deploy.template.yaml"
+
+build:
+  extends: .kaniko
+  variables:
+    IMAGE_NAME: react-account
+
+deploy:
+  extends: .helm_install
+  rules:
+    - if: $CI_COMMIT_BRANCH == 'master'
+  environment:
+    name: production
+    url: https://armybots.ru/react-account
+    deployment_tier: production
+  variables:
+    APP_NAMESPACE: army
