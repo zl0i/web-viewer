@@ -30,7 +30,7 @@ export default function App() {
 
   useMemo(() => {
     if (editAircraft.reg) {
-      console.log('update photo')
+      console.log('update photo');
       setPhotos([]);
       flightAPI.fetchAircraftPhotos(editAircraft.hexcode).then(setPhotos);
     }
@@ -43,7 +43,7 @@ export default function App() {
         .then(() => {
           const index = aircrafts.findIndex((a) => a.reg == aircraft.reg);
           aircrafts[index] = aircraft;
-          setAircrafts(aircrafts);
+          // setAircrafts(aircrafts);
           if (next) {
             nextAircraft(aircraft.reg);
           } else {
@@ -58,7 +58,7 @@ export default function App() {
     const index = filteredAircrafts.findIndex((a) => a.reg == from_reg);
     const newEditAircraft = filteredAircrafts[index + 1];
     if (newEditAircraft) {
-      console.log('set edit aircraft')
+      console.log('set edit aircraft');
       setEditAircraft(newEditAircraft);
     }
   }
@@ -83,6 +83,7 @@ export default function App() {
   });
 
   useMemo(() => {
+    console.log('set aircrfats or filter');
     setFilteredAircrafts(
       aircrafts.filter((ac) => {
         let valid = true;
@@ -123,7 +124,7 @@ export default function App() {
       });
       flightAPI.fetchAllAirbases().then(fillAirbases);
     }
-  }, [auth]);
+  }, [auth.user?.profile]);
 
   if (auth.isLoading) {
     return <div>Signing you in/out...</div>;

@@ -19,6 +19,7 @@ export default function EditAircraftDialog({ aircraft, photos, isOpen, setIsOpen
   const matchAirbases = useAirbasesStore((state) => state.match);
 
   useMemo(() => {
+    console.log('memo', aircraft.reg, aircraft.air_wing);
 
     setInAircraft(aircraft);
     setNameAirbase(aircraft.id_airbase ? getAirbaseById(aircraft.id_airbase)?.name ?? '' : '');
@@ -265,6 +266,7 @@ export default function EditAircraftDialog({ aircraft, photos, isOpen, setIsOpen
             </button>
             <button
               onClick={() => {
+                console.log(nameAirbase, nameAirbaseAlt, nameAirbase.length > 0 ? getAirbaseByName(nameAirbase)?.id ?? null : null, nameAirbaseAlt.length > 0 ? getAirbaseByName(nameAirbaseAlt)?.id ?? null : null);
                 patchAircraft(
                   {
                     ...inAircraft,
@@ -279,6 +281,7 @@ export default function EditAircraftDialog({ aircraft, photos, isOpen, setIsOpen
             </button>
             <button
               onClick={() => {
+                console.log(nameAirbase, nameAirbaseAlt);
                 nextAircraft(inAircraft.reg);
               }}
             >
