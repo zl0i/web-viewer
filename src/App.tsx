@@ -6,6 +6,7 @@ import AircraftsPage from './pages/Aircrafts';
 import AirbasesPage from './pages/Airbases';
 
 import './App.css';
+import { HomePage } from './pages/Home';
 
 export default function App() {
   const auth = useAuth();
@@ -29,12 +30,14 @@ export default function App() {
   return (
     <>
       <header>
+        <Link to="/">Home</Link>
         <Link to="/airbase">Airbases</Link>
         <Link to="/aircrafts">Aircrafts</Link>
         <button onClick={() => void auth.removeUser()}>Log out</button>
         <hr />
       </header>
       <Routes>
+        <Route path="/" element={<HomePage/>}></Route>
         <Route path="/airbase" element={<AirbasesPage />}></Route>
         <Route path="/aircrafts" element={<AircraftsPage />}></Route>
       </Routes>
