@@ -1,6 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App.tsx';
+// import AircraftsPages from './pages/Aircrafts.tsx';
+
+// import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+
 import './index.css';
 
 import { AuthProvider, AuthProviderProps } from 'react-oidc-context';
@@ -16,10 +20,26 @@ const oidcConfig: AuthProviderProps = {
   userStore: new WebStorageStateStore({ store: window.localStorage }),
 };
 
+// const router = createBrowserRouter([
+//   {
+//     path: '/',
+//     element: <App />,
+//   },
+//   {
+//     path: '/aircrafts',
+//     element: <AircraftsPages />,
+//   },
+// ]);
+
+import { BrowserRouter } from 'react-router-dom';
+
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <AuthProvider {...oidcConfig}>
-      <App />
+      <BrowserRouter>
+        {/* <RouterProvider router={router} /> */}
+        <App />
+      </BrowserRouter>
     </AuthProvider>
   </React.StrictMode>
 );

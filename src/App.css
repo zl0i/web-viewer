@@ -1,13 +1,26 @@
+header {
+  width: 100vw;
+  height: 75px;
+  background-color: #1f1a2a;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-table {
-  border: 1px solid grey;
+header * {
+  margin: 10px;
+}
+
+header hr {
+  margin: 0;
+  position: absolute;
+  left: 0;
+  bottom: 0;
   width: 100%;
+  margin: 0;
 }
-/* границы ячеек первого ряда таблицы */
-th {
-  border: 1px solid grey;
-}
-/* границы ячеек тела таблицы */
-td {
-  border: 1px solid grey;
+
+header button {
+  padding: 4px 8px;
 }
