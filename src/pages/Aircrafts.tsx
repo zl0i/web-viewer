@@ -115,7 +115,7 @@ export default function AircraftsPage() {
         setAircrafts(aircrafts);
         parceAircraftsForMapper(aircrafts);
       });
-      flightAPI.fetchAllAirbases().then(fillAirbases);
+      flightAPI.airbases.fetch().then(fillAirbases);
     }
   }, [auth]);
 

@@ -52,6 +52,43 @@ export function useFlightAPI() {
     const auth = useAuth()
 
     return {
+        airbases: {
+            fetch: async (): Promise<Airbase[]> => {
+                const res = await axios.get(`https://${host}/api/flights-bot/airbases`, {
+                    headers: {
+                        Authorization: `Bearer ${auth.user?.access_token}`
+                    }
+                })
+                return res.data
+            },
+            create: async (airbase: Airbase): Promise<Airbase[]> => {
+                const res = await axios.post(`https://${host}/api/flights-bot/airbases`, airbase,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${auth.user?.access_token}`
+                        }
+                    })
+                return res.data
+            },
+            update: async (id: number, airbase: Partial<Airbase>): Promise<Airbase[]> => {
+                const res = await axios.patch(`https://${host}/api/flights-bot/airbases/${id}`, airbase,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${auth.user?.access_token}`
+                        }
+                    })
+                return res.data
+            },
+            delete: async (id: number): Promise<boolean> => {
+                const res = await axios.patch(`https://${host}/api/flights-bot/airbases/${id}`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${auth.user?.access_token}`
+                        }
+                    })
+                return res.data
+            }
+        },
         fetchAllAircrafts: async (): Promise<Aircraft[]> => {
             const res = await axios.get(`https://${host}/api/flights-bot/aircrafts`, {
                 headers: {
@@ -60,14 +97,7 @@ export function useFlightAPI() {
             })
             return res.data
         },
-        fetchAllAirbases: async (): Promise<Airbase[]> => {
-            const res = await axios.get(`https://${host}/api/flights-bot/airbases`, {
-                headers: {
-                    Authorization: `Bearer ${auth.user?.access_token}`
-                }
-            })
-            return res.data
-        },
+
         fetchAircraftPhotos: async (hexcode: string): Promise<AircraftPhoto[]> => {
             const res = await axios.get(`https://${host}/api/flights-bot/flight-photos?hexcode=${hexcode}`, {
                 headers: {
