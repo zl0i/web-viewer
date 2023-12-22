@@ -3,7 +3,7 @@ import { useAuth, hasAuthParams } from 'react-oidc-context';
 import { Route, Link, Routes } from 'react-router-dom';
 
 import AircraftsPage from './pages/Aircrafts';
-import AirbasesPage from './pages/Airbases';
+import { AirbasesPage } from './pages/Airbases';
 
 import './App.css';
 import { HomePage } from './pages/Home';
@@ -37,7 +37,7 @@ export default function App() {
         <hr />
       </header>
       <Routes>
-        <Route path="/" element={<HomePage/>}></Route>
+        <Route path="/" element={<HomePage />}></Route>
         <Route path="/airbase" element={<AirbasesPage />}></Route>
         <Route path="/aircrafts" element={<AircraftsPage />}></Route>
       </Routes>
