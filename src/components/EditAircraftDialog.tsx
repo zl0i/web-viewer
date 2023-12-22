@@ -19,8 +19,6 @@ export default function EditAircraftDialog({ aircraft, photos, isOpen, setIsOpen
   const matchAirbases = useAirbasesStore((state) => state.match);
 
   useMemo(() => {
-    console.log('memo', aircraft.reg, aircraft.air_wing);
-
     setInAircraft(aircraft);
     setNameAirbase(aircraft.id_airbase ? getAirbaseById(aircraft.id_airbase)?.name ?? '' : '');
     setNameAirbaseAlt(aircraft.id_airbase_alt ? getAirbaseById(aircraft.id_airbase_alt)?.name ?? '' : '');
@@ -159,7 +157,6 @@ export default function EditAircraftDialog({ aircraft, photos, isOpen, setIsOpen
                 list="airbases"
                 defaultValue={inAircraft?.id_airbase ? getAirbaseById(inAircraft.id_airbase)?.name : ''}
                 onChange={debounce((e) => {
-                  console.log('set airbase');
                   setNameAirbase(e.target.value);
                 }, 500)}
               />
@@ -236,7 +233,6 @@ export default function EditAircraftDialog({ aircraft, photos, isOpen, setIsOpen
                 list="alt_airbases"
                 defaultValue={inAircraft?.id_airbase_alt ? getAirbaseById(inAircraft.id_airbase_alt)?.name : ''}
                 onInput={debounce((e) => {
-                  console.log('set alt airbase');
                   setNameAirbaseAlt(e.target.value);
                 }, 500)}
               />
@@ -266,7 +262,6 @@ export default function EditAircraftDialog({ aircraft, photos, isOpen, setIsOpen
             </button>
             <button
               onClick={() => {
-                console.log(nameAirbase, nameAirbaseAlt, nameAirbase.length > 0 ? getAirbaseByName(nameAirbase)?.id ?? null : null, nameAirbaseAlt.length > 0 ? getAirbaseByName(nameAirbaseAlt)?.id ?? null : null);
                 patchAircraft(
                   {
                     ...inAircraft,
@@ -281,7 +276,6 @@ export default function EditAircraftDialog({ aircraft, photos, isOpen, setIsOpen
             </button>
             <button
               onClick={() => {
-                console.log(nameAirbase, nameAirbaseAlt);
                 nextAircraft(inAircraft.reg);
               }}
             >

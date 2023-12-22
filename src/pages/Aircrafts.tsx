@@ -23,7 +23,6 @@ export default function AircraftsPage() {
 
   useMemo(() => {
     if (editAircraft.reg) {
-      console.log('update photo');
       setPhotos([]);
       flightAPI.aircraftPhotos.fetchByHex(editAircraft.hexcode).then(setPhotos);
     }
@@ -51,7 +50,6 @@ export default function AircraftsPage() {
     const index = filteredAircrafts.findIndex((a) => a.reg == from_reg);
     const newEditAircraft = filteredAircrafts[index + 1];
     if (newEditAircraft) {
-      console.log('set edit aircraft');
       setEditAircraft(newEditAircraft);
     }
   }
@@ -76,7 +74,6 @@ export default function AircraftsPage() {
   });
 
   useMemo(() => {
-    console.log('set aircrfats or filter');
     setFilteredAircrafts(
       aircrafts.filter((ac) => {
         let valid = true;

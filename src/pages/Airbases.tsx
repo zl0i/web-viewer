@@ -35,7 +35,6 @@ const AirbasesPage = memo(() => {
   }
 
   function updateAirbase(airbase: Partial<Airbase>) {
-    // console.log(airbase);
     flightAPI.airbases
       .update(airbase.id!, airbase)
       .then((_) => {
