@@ -80,7 +80,7 @@ export function useFlightAPI() {
                 return res.data
             },
             delete: async (id: number): Promise<boolean> => {
-                const res = await axios.patch(`https://${host}/api/flights-bot/airbases/${id}`,
+                const res = await axios.delete(`https://${host}/api/flights-bot/airbases/${id}`,
                     {
                         headers: {
                             Authorization: `Bearer ${auth.user?.access_token}`

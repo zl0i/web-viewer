@@ -1,0 +1,13 @@
+.airbases-filter {
+  margin: 10px;
+  margin-left: 0px;
+  display: flex;
+}
+
+.airbases-filter:not(:last-child) {
+  margin-right: 10px;
+}
+
+.airbases-filter button {
+  margin-left: auto;
+}

@@ -6,10 +6,11 @@ import './AirbaseRow.css';
 interface AirbaseRowProps extends PropsWithChildren {
   airbase: Airbase;
   clickEdit: (airbase: Airbase) => void;
+  clickDelete: (id: number) => void;
 }
 
 export function AirbaseRow(props: AirbaseRowProps) {
-  const { airbase, clickEdit } = props;
+  const { airbase, clickEdit, clickDelete } = props;
 
   return (
     <tr>
@@ -23,7 +24,7 @@ export function AirbaseRow(props: AirbaseRowProps) {
         <button onClick={() => clickEdit(airbase)}>Edit</button>
       </td>
       <td className="center-text">
-        <button>Delete</button>
+        <button onClick={() => clickDelete(airbase.id)}>Delete</button>
       </td>
     </tr>
   );

@@ -6,10 +6,10 @@ interface EditAirbaseDialogProps {
   isOpen: boolean;
   setIsOpen: (b: boolean) => void;
   airbase?: Airbase;
-  clickUpdate: (airbase: Partial<Airbase>) => void;
+  clickCreateOrUpdate: (airbase: Partial<Airbase>) => void;
 }
 
-const EditAirbaseDialog = memo(({ airbase, isOpen, setIsOpen, clickUpdate }: EditAirbaseDialogProps) => {
+const EditAirbaseDialog = memo(({ airbase, isOpen, setIsOpen, clickCreateOrUpdate }: EditAirbaseDialogProps) => {
   const [editAirbase, setEditAirbase] = useState<Partial<Airbase>>({});
 
   useMemo(() => {
@@ -111,11 +111,11 @@ const EditAirbaseDialog = memo(({ airbase, isOpen, setIsOpen, clickUpdate }: Edi
             <button
               onClick={() => {
                 if (editAirbase) {
-                  clickUpdate(editAirbase);
+                  clickCreateOrUpdate(editAirbase);
                 }
               }}
             >
-              Update
+              {editAirbase.id ? 'Update' : 'Create'}
             </button>
             <button onClick={() => setIsOpen(false)}>Cancel</button>
           </div>

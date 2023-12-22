@@ -6,6 +6,8 @@ import { AirbaseRow } from '../components/AirbaseRow';
 import { EditAirbaseDialog } from '../components/EditAirbaseDialog';
 import debounce from 'debounce';
 
+import './Airbases.css';
+
 const AirbasesPage = memo(() => {
   const flightAPI = useFlightAPI();
 
@@ -34,26 +36,52 @@ const AirbasesPage = memo(() => {
     setIsOpen(true);
   }
 
-  function updateAirbase(airbase: Partial<Airbase>) {
+  function clickNewAirbase() {
+    setEditAirbase(undefined);
+    setIsOpen(true);
+  }
+
+  function createOrUpdateAirbase(airbase: Partial<Airbase>) {
+    if (airbase.id) {
+      flightAPI.airbases
+        .update(airbase.id!, airbase)
+        .then((_) => {
+          setIsOpen(false);
+        })
+        .catch((err: any) => {
+          console.log(err);
+        });
+    } else {
+      flightAPI.airbases
+        .create(airbase as Airbase)
+        .then((_) => {
+          setIsOpen(false);
+        })
+        .catch((err: any) => {
+          console.log(err);
+        });
+    }
+  }
+
+  function deleteAirbase(id: number) {
     flightAPI.airbases
-      .update(airbase.id!, airbase)
-      .then((_) => {
-        setIsOpen(false);
-      })
-      .catch((err: any) => {
-        console.log(err);
-      });
+      .delete(id)
+      .then((_) => flightAPI.airbases.fetch())
+      .then(fillAirbases);
   }
 
   return (
     <div className="aircrafts-page">
-      <span>Name:</span>
-      <input
-        type="text"
-        onChange={debounce((e) => {
-          setNameFilter(e.target.value);
-        })}
-      />
+      <div className="airbases-filter">
+        <span>Name:</span>
+        <input
+          type="text"
+          onChange={debounce((e) => {
+            setNameFilter(e.target.value);
+          })}
+        />
+        <button onClick={() => clickNewAirbase()}>New</button>
+      </div>
       <table>
         <thead>
           <tr>
@@ -69,11 +97,11 @@ const AirbasesPage = memo(() => {
         </thead>
         <tbody>
           {filteredAirbases.map((a) => (
-            <AirbaseRow airbase={a} key={a.id} clickEdit={(airbase) => clickEditAirbase(airbase)} />
+            <AirbaseRow airbase={a} key={a.id} clickEdit={(airbase) => clickEditAirbase(airbase)} clickDelete={(id) => deleteAirbase(id)} />
           ))}
         </tbody>
       </table>
-      <EditAirbaseDialog isOpen={isOpen} setIsOpen={setIsOpen} airbase={editAirbase} clickUpdate={(airbase) => updateAirbase(airbase)}></EditAirbaseDialog>
+      <EditAirbaseDialog isOpen={isOpen} setIsOpen={setIsOpen} airbase={editAirbase} clickCreateOrUpdate={(airbase) => createOrUpdateAirbase(airbase)}></EditAirbaseDialog>
     </div>
   );
 });
