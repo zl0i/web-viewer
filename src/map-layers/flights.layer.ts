@@ -28,13 +28,12 @@ export async function useFlightsLayout() {
         const airground = feature.get('airground')
         return new Style({
             image: new Icon({
-                src: `aircraft_icons/${image}.png`,
+                src: `./aircraft_icons/${image}.png`,
                 rotation: course,
                 scale: 0.5 * scale,
                 color: getColorByAlt(alt, airground)
             })
         });
-
     })
 
     function updateSource(flights: Flight[]) {
