@@ -89,38 +89,41 @@ export function useFlightAPI() {
                 return res.data
             }
         },
-        fetchAllAircrafts: async (): Promise<Aircraft[]> => {
-            const res = await axios.get(`https://${host}/api/flights-bot/aircrafts`, {
-                headers: {
-                    Authorization: `Bearer ${auth.user?.access_token}`
-                }
-            })
-            return res.data
+        aircrafts: {
+            fetch: async (): Promise<Aircraft[]> => {
+                const res = await axios.get(`https://${host}/api/flights-bot/aircrafts`, {
+                    headers: {
+                        Authorization: `Bearer ${auth.user?.access_token}`
+                    }
+                })
+                return res.data
+            },
+            update: async (aircraft: Aircraft): Promise<Aircraft> => {
+                const res = await axios.patch(`https://${host}/api/flights-bot/aircrafts/${aircraft.reg}`, aircraft, {
+                    headers: {
+                        Authorization: `Bearer ${auth.user?.access_token}`
+                    }
+                })
+                return res.data
+            }
         },
-
-        fetchAircraftPhotos: async (hexcode: string): Promise<AircraftPhoto[]> => {
-            const res = await axios.get(`https://${host}/api/flights-bot/flight-photos?hexcode=${hexcode}`, {
-                headers: {
-                    Authorization: `Bearer ${auth.user?.access_token}}`
-                }
-            })
-            return res.data
+        aircraftPhotos: {
+            fetchByHex: async (hexcode: string): Promise<AircraftPhoto[]> => {
+                const res = await axios.get(`https://${host}/api/flights-bot/flight-photos?hexcode=${hexcode}`, {
+                    headers: {
+                        Authorization: `Bearer ${auth.user?.access_token}}`
+                    }
+                })
+                return res.data
+            },
+            delete: async (id: number) => {
+                const res = await axios.delete(`https://${host}/api/flights-bot/flight-photos/${id}`, {
+                    headers: {
+                        Authorization: `Bearer ${auth.user?.access_token}}`
+                    }
+                })
+                return res.data
+            }
         },
-        deleteAircraftPhoto: async (id: number) => {
-            const res = await axios.delete(`https://${host}/api/flights-bot/flight-photos/${id}`, {
-                headers: {
-                    Authorization: `Bearer ${auth.user?.access_token}}`
-                }
-            })
-            return res.data
-        },
-        patchAircraft: async (aircraft: Aircraft): Promise<Aircraft> => {
-            const res = await axios.patch(`https://${host}/api/flights-bot/aircrafts/${aircraft.reg}`, aircraft, {
-                headers: {
-                    Authorization: `Bearer ${auth.user?.access_token}`
-                }
-            })
-            return res.data
-        }
     }
 }

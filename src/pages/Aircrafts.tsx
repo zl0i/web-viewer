@@ -25,14 +25,14 @@ export default function AircraftsPage() {
     if (editAircraft.reg) {
       console.log('update photo');
       setPhotos([]);
-      flightAPI.fetchAircraftPhotos(editAircraft.hexcode).then(setPhotos);
+      flightAPI.aircraftPhotos.fetchByHex(editAircraft.hexcode).then(setPhotos);
     }
   }, [editAircraft]);
 
   function patchAircraft(aircraft: Aircraft, next: boolean = false) {
     if (aircraft.reg) {
-      flightAPI
-        .patchAircraft(aircraft)
+      flightAPI.aircrafts
+        .update(aircraft)
         .then(() => {
           const index = aircrafts.findIndex((a) => a.reg == aircraft.reg);
           aircrafts[index] = aircraft;
@@ -57,9 +57,9 @@ export default function AircraftsPage() {
   }
 
   function deleteAircraftPhoto(id: number) {
-    flightAPI
-      .deleteAircraftPhoto(id)
-      .then(() => flightAPI.fetchAircraftPhotos(editAircraft.hexcode))
+    flightAPI.aircraftPhotos
+      .delete(id)
+      .then(() => flightAPI.aircraftPhotos.fetchByHex(editAircraft.hexcode))
       .then((data) => {
         setPhotos(data);
       });
@@ -111,7 +111,7 @@ export default function AircraftsPage() {
 
   useEffect(() => {
     if (auth.isAuthenticated) {
-      flightAPI.fetchAllAircrafts().then((aircrafts) => {
+      flightAPI.aircrafts.fetch().then((aircrafts) => {
         setAircrafts(aircrafts);
         parceAircraftsForMapper(aircrafts);
       });
