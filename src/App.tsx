@@ -7,6 +7,7 @@ import { AirbasesPage } from './pages/Airbases';
 
 import './App.css';
 import { HomePage } from './pages/Home';
+import { MapPage } from './pages/Map';
 
 export default function App() {
   const auth = useAuth();
@@ -33,6 +34,7 @@ export default function App() {
         <Link to="/">Home</Link>
         <Link to="/airbase">Airbases</Link>
         <Link to="/aircrafts">Aircrafts</Link>
+        <Link to="/map">Map</Link>
         <button onClick={() => void auth.removeUser()}>Log out</button>
         <hr />
       </header>
@@ -40,6 +42,7 @@ export default function App() {
         <Route path="/" element={<HomePage />}></Route>
         <Route path="/airbase" element={<AirbasesPage />}></Route>
         <Route path="/aircrafts" element={<AircraftsPage />}></Route>
+        <Route path="/map" element={<MapPage />}></Route>
       </Routes>
     </>
   );

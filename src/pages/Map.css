@@ -1,0 +1,13 @@
+#map {
+    width: 100%;
+    height: calc(100vh - 80px);
+    overflow-x: hidden;
+    overflow-y: hidden;
+    position: absolute;
+}
+
+.ol-scale-line {
+    left: unset;
+    right: 8px;
+  }
+  

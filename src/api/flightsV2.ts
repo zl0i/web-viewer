@@ -3,6 +3,24 @@ import { useAuth } from "react-oidc-context";
 
 const host = "armybots.ru"
 
+export type Flight = {
+    hexcode: string,
+    flight_id: string,
+    reg: string,
+    callsign: string,
+    type: string,
+    country: string,
+    lat: number,
+    lon: number,
+    last_update: number,
+    alt: number,
+    airground: boolean,
+    course: number,
+    speed: number,
+    image: string,
+    image_scale: number
+}
+
 export type Aircraft = {
     reg: string,
     hexcode: string,
@@ -52,6 +70,16 @@ export function useFlightAPI() {
     const auth = useAuth()
 
     return {
+        flights: {
+            update: async (): Promise<Flight[]> => {
+                const res = await axios.get(`https://${host}/api/flights-bot/flights`, {
+                    headers: {
+                        Authorization: `Bearer ${auth.user?.access_token}`
+                    }
+                })
+                return res.data
+            }
+        },
         airbases: {
             fetch: async (): Promise<Airbase[]> => {
                 const res = await axios.get(`https://${host}/api/flights-bot/airbases`, {
