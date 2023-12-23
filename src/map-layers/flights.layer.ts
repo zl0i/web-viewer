@@ -41,6 +41,7 @@ export async function useFlightsLayout() {
         const features = new GeoJSON().readFeatures(geojson, {
             featureProjection: "EPSG:3857",
         });
+        source.clear(true)
         source.addFeatures(features as Feature<Geometry>[])
     }
 
