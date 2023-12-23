@@ -11,6 +11,6 @@ export default defineConfig(({ mode }) => {
         '@': fileURLToPath(new URL('./src', import.meta.url))
       }
     },
-    base: mode == 'development' ? "" : '/react-account/',
+    base: mode == 'development' ? "" : '/react-account',
   }
 })
