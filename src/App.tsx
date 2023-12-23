@@ -31,10 +31,10 @@ export default function App() {
   return (
     <>
       <header>
-        <Link to="/">Home</Link>
-        <Link to="/airbase">Airbases</Link>
-        <Link to="/aircrafts">Aircrafts</Link>
-        <Link to="/map">Map</Link>
+        <Link to={`${import.meta.env.BASE_URL}/`}>Home</Link>
+        <Link to={`${import.meta.env.BASE_URL}/airbase`}>Airbases</Link>
+        <Link to={`${import.meta.env.BASE_URL}/aircrafts`}>Aircrafts</Link>
+        <Link to={`${import.meta.env.BASE_URL}/map`}>Map</Link>
         <button onClick={() => void auth.removeUser()}>Log out</button>
         <hr />
       </header>
