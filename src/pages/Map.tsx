@@ -37,11 +37,13 @@ const MapPage = () => {
   const airbasesLayer = useAirbaseLayout();
   airbasesLayer.then((layer) => map.addLayer(layer));
 
-  const flightsLayer = useFlightsLayout();
-  flightsLayer.then(([layer]) => map.addLayer(layer));
+  const flightsLayer = useFlightsLayout(map);
 
   useEffect(() => {
     map.setTarget('map');
+    return () => {
+      flightsLayer.stopUpdate();
+    };
   }, []);
 
   return (
