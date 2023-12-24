@@ -5,6 +5,7 @@ export function HomePage() {
   const systemAPI = useSystemAPI();
   if ('Notification' in window) {
     window.Notification.requestPermission()
+      // .then(() => navigator.serviceWorker.register(`${import.meta.env.BASE_URL}/firebase-messaging-sw.js`))
       .then(() => {
         const messaging = getMessaging();
 
@@ -14,6 +15,7 @@ export function HomePage() {
 
         return getToken(messaging, {
           vapidKey: 'BLguINrNTm3cFPY2wtx-7YaY1Y9_YDL6oxoxGn4BcDZm5EcnpsoXcnPAbnCc3kAuAvTpE1J1SQ__fxgG4SzsiJE',
+          // serviceWorkerRegistration: registration,
         });
       })
       .then((token) => {
