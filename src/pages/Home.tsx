@@ -1,10 +1,11 @@
 import { getMessaging, getToken, onMessage } from 'firebase/messaging';
+import { useSystemAPI } from '../api/system';
 
 export function HomePage() {
+  const systemAPI = useSystemAPI();
   if ('Notification' in window) {
     window.Notification.requestPermission()
-      .then(() => navigator.serviceWorker.register(`${import.meta.env.BASE_URL}/firebase-messaging-sw.js`))
-      .then((registration) => {
+      .then(() => {
         const messaging = getMessaging();
 
         onMessage(messaging, (payload) => {
@@ -13,14 +14,14 @@ export function HomePage() {
 
         return getToken(messaging, {
           vapidKey: 'BLguINrNTm3cFPY2wtx-7YaY1Y9_YDL6oxoxGn4BcDZm5EcnpsoXcnPAbnCc3kAuAvTpE1J1SQ__fxgG4SzsiJE',
-          serviceWorkerRegistration: registration,
         });
       })
       .then((token) => {
         console.log(token);
+        return systemAPI.registrToken(token);
       })
-      .catch((err) => {
-        console.error(err);
+      .then(() => {
+        console.log('token registered');
       })
       .catch((err) => console.log(err));
   }
